@@ -14,4 +14,3 @@ void merge_sort(int arrv[], int left, int right);
 void merge(int arrc, int arrv[], int left, int middle, int right);
 
 void quick_sort(int arrv[], int left, int right);
-int quick(int arrc, int arrv[], int left, int middle, int right);

@@ -158,37 +158,32 @@ void merge(int arrc, int arrv[], int left, int middle, int right)
 
 void quick_sort(int arrv[], int left, int right)
 {
-	int arrc,middle,index;
-	arrc=(right-left)+1;
-	if (arrc>1)
+	int pivot,tmp,i,j;
+	pivot=arrv[right];
+	i=left;
+	j=right-1;
+	while(i<j)
 	{
-		middle=(left+right)/2;
-		index = quick(arrc,arrv,left,middle,right);
-		print_array(8,arrv);
-		quick_sort(arrv,left,index-1);
-		quick_sort(arrv,index+1,right);
+		while(arrv[i]<pivot)
+			i++;
+		while(arrv[j]>pivot)
+			j--;
+		if (i < j)
+		{
+			tmp = arrv[i];
+			arrv[i] = arrv[j];
+			arrv[j] = tmp;
+			i++;
+			j--;
+		}
 	}
+	tmp = arrv[right];
+	arrv[right] = arrv[i];
+	arrv[i] = tmp;
+	print_array(8,arrv);
+	if (left < j)
+		quick_sort(arrv,left,i-1);
+	if (i < right)
+		quick_sort(arrv,i+1,right);
 }
 
-int quick(int arrc, int arrv[], int left, int middle, int right)
-{
-	int pivot,i,j,z;
-	int * tmp;
-	tmp=(int *)calloc(arrc, sizeof(int));
-	for(pivot=arrv[middle],i=left,j=0,z=arrc-1;i<=right;i++)
-	{
-		if(arrv[i]<pivot)
-		{
-			tmp[j]=arrv[i];
-			j++;
-		}
-		else if(arrv[i]>pivot)
-		{
-			tmp[z]=arrv[i];
-			z--;
-		}
-	}
-	tmp[z]=pivot;
-	copy_array(tmp,0,arrc,arrv,left,right);
-	return left+j;
-}
