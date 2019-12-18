@@ -34,7 +34,9 @@ int main(int argc, char * argv[])
 	} else if(strcmp(argv[1],"bubble")==0) {
 		bubble_sort(8,array);
 	} else if(strcmp(argv[1],"merge")==0) {
-		merge_sort(8,array,0,7);
+		merge_sort(array,0,7);
+	} else if(strcmp(argv[1],"quick")==0) {
+		quick_sort(array,0,7);
 	}
 	
     t=clock()-t;
@@ -120,16 +122,16 @@ void bubble_sort(int arrc, int arrv[])
 	}
 }
 
-void merge_sort(int arrc, int arrv[], int left, int right)
+void merge_sort(int arrv[], int left, int right)
 {
-	int length,middle;
-	length=(right-left)+1;
-	if (length>1)
+	int arrc,middle;
+	arrc=(right-left)+1;
+	if (arrc>1)
 	{
 		middle=(left+right)/2;
-		merge_sort(length,arrv,left,middle);
-		merge_sort(length,arrv,middle+1,right);
-		merge(length,arrv,left,middle,right);
+		merge_sort(arrv,left,middle);
+		merge_sort(arrv,middle+1,right);
+		merge(arrc,arrv,left,middle,right);
 		print_array(8,arrv);
 	}
 }
@@ -154,3 +156,39 @@ void merge(int arrc, int arrv[], int left, int middle, int right)
 	copy_array(tmp,0,arrc,arrv,left,right);
 }
 
+void quick_sort(int arrv[], int left, int right)
+{
+	int arrc,middle,index;
+	arrc=(right-left)+1;
+	if (arrc>1)
+	{
+		middle=(left+right)/2;
+		index = quick(arrc,arrv,left,middle,right);
+		print_array(8,arrv);
+		quick_sort(arrv,left,index-1);
+		quick_sort(arrv,index+1,right);
+	}
+}
+
+int quick(int arrc, int arrv[], int left, int middle, int right)
+{
+	int pivot,i,j,z;
+	int * tmp;
+	tmp=(int *)calloc(arrc, sizeof(int));
+	for(pivot=arrv[middle],i=left,j=0,z=arrc-1;i<=right;i++)
+	{
+		if(arrv[i]<pivot)
+		{
+			tmp[j]=arrv[i];
+			j++;
+		}
+		else if(arrv[i]>pivot)
+		{
+			tmp[z]=arrv[i];
+			z--;
+		}
+	}
+	tmp[z]=pivot;
+	copy_array(tmp,0,arrc,arrv,left,right);
+	return left+j;
+}

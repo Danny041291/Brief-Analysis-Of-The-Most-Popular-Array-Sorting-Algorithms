@@ -10,5 +10,8 @@ void insert_sort(int arrc, int arrv[]);
 void select_sort(int arrc, int arrv[]);
 void bubble_sort(int arrc, int arrv[]);
 
-void merge_sort(int arrc, int arrv[], int left, int right);
+void merge_sort(int arrv[], int left, int right);
 void merge(int arrc, int arrv[], int left, int middle, int right);
+
+void quick_sort(int arrv[], int left, int right);
+int quick(int arrc, int arrv[], int left, int middle, int right);
